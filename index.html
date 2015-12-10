@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Dime donde vives y te diré cuanto vivirás</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <link rel="shortcut icon" href="http://cartodb.com/assets/favicon.ico" />
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700|Open+Sans+Condensed:300,700' rel='stylesheet' type='text/css'>
+
+    <style>
+      ul {
+        margin: 0;
+        padding: 0;
+      }
+      li {
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+        text-shadow: 0 0 10px #eee;
+      }
+      li > p {
+        float: right;
+      }
+      html, body {
+        height: 100%;
+        width: 100%;
+        padding: 0;
+        margin: 0;
+      }
+      #map {
+        position: absolute;
+        left: 380px;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        padding: 0;
+        margin: 0;
+      }
+      .top_map{
+        z-index: 1000;
+      }
+      .bottom_map {
+        display: none;
+        z-index: 0;
+      }
+      #map_selector {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: 300px;
+        padding: 0;
+        margin: 0;
+        z-index: 1000;
+        overflow: hidden;
+        padding: 40px;
+        background: #f2f2f2;
+      }
+      #Thumbnails ul {
+        padding: 0; margin: 0;
+        list-style-type: none;
+        height: 100%;
+        width: 100%;
+      }
+ 
+      #Thumbnails li {
+        float: left;
+        font-family: "Helvetica", Arial;
+        font-size: 13px;
+        color: #444;
+        cursor: auto;
+        width: 33.33%;
+        height: 150px;
+        cursor: pointer;
+      }
+ 
+      .map {
+        width: 100%; height: 100%;
+      }
+
+      .Header h1 {
+        font: 700 30px 'Open Sans Condensed';
+        color: #333;
+        padding: 0 0 20px 0;
+        border-bottom: 1px solid #ccc;
+        margin: 0 0 30px 0;
+      }
+      .ramp-inner {
+        height: 20px;
+/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#1e5799+0,2f4886+0,2f4886+50,2f4886+50,2989d8+51,2989d8+51,ad373e+51 */
+background: #1e5799; /* Old browsers */
+background: -moz-linear-gradient(left,  #1e5799 0%, #2f4886 0%, #2f4886 50%, #2f4886 50%, #2989d8 51%, #2989d8 51%, #ad373e 51%); /* FF3.6-15 */
+background: -webkit-linear-gradient(left,  #1e5799 0%,#2f4886 0%,#2f4886 50%,#2f4886 50%,#2989d8 51%,#2989d8 51%,#ad373e 51%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to right,  #1e5799 0%,#2f4886 0%,#2f4886 50%,#2f4886 50%,#2989d8 51%,#2989d8 51%,#ad373e 51%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', endColorstr='#ad373e',GradientType=1 ); /* IE6-9 */
+
+
+        border-radius: 50px;
+      }
+      .ramp {
+        margin-bottom: 30px;
+      }
+      .ramp-info {
+        width: auto;
+        overflow: hidden;
+        margin-bottom: 12px;
+      }
+      .ramp-info li {
+        float: left;
+        width: 20%;
+        text-align: left;
+        margin: 0;
+        font: 300 20px/18px 'Open Sans Condensed', sans-serif;
+        text-transform: uppercase;
+      }
+      .cartodb-overlay {
+        display: none !Important;
+      }
+      .Thumbnails > li {
+        opacity: .5;
+        margin-bottom: 30px;
+        position: relative;
+        cursor: pointer;
+      }
+      .Thumbnails > li p {
+        font: 300 14px/15px 'Open Sans Condensed', sans-serif;
+        margin: 0;
+        position: absolute;
+        bottom: 10px;
+        left: 10px;
+      }
+        
+      .Thumbnails > li.selected {
+        opacity: 1;
+      }
+      .mapx {
+        height: 100px;
+        position: relative;
+        overflow: hidden;
+      }
+      .selected .mapx {
+        box-shadow: 0 0 8px rgba(0, 0, 0, .2);
+      }
+      .mapx:after {
+        content:"";
+        position: absolute;
+        display: block;
+        pointer-events: none;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        border: 1px solid rgba(0, 0, 0, .3);
+        border-radius: 2px;
+      }
+      .logo {
+        position: absolute;
+        left: 40px;
+        bottom: 40px;
+      }
+    </style>
+     <link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/3.15/themes/css/cartodb.css" />
+  </head>
+  <body>
+    <div id="map" class=" top_map"></div>
+    <div id="map_selector" class="" style="overflow: scroll">
+      <div class="Header">
+        <h1>Dime donde vives y te diré cuanto vivirás</h1>
+        <img class="logo" src="https://cartodb-libs.global.ssl.fastly.net/cartodb.com/static/logos_full_cartodb_light.png" height="30" />
+      <ul class="Thumbnails">
+        <li id='img0' class="mapx">
+          <div id="map0" class="mapx"></div>
+          <p>Esperanza de vida al nacer por distritos</p>
+        </li>
+        <li id='img1'>
+          <div id="map1" class="mapx"></div>
+          <p>Esperanza de vida al nacer por distritos. Mujeres.</p>
+        </li>
+        <li id='img2'>
+          <div id="map2" class="mapx"></div>
+          <p>Esperanza de vida al nacer por distritos. Hombres.</p>
+        </li>
+        <li id='img3'>
+          <div id="map3" class="mapx"></div>
+          <p>Tasa de paro por distritos.</p>
+        </li>
+		    <li id='img4'>
+          <div id="map4" class="mapx"></div>
+          <p>Tasa de paro por distritos. Mujeres.</p>
+        </li>
+		    <li id='img5'>
+          <div id="map5" class="mapx"></div>
+          <p>Tasa de paro por distritos. Hombres.</p>
+        </li>
+        <li id='img6'>
+          <div id="map6" class="mapx"></div>
+          <p>Tasa de paro por barrios.</p>
+        </li>
+      </ul>
+ 
+    <!-- include cartodb.js library -->
+    <script src="http://libs.cartocdn.com/cartodb.js/v3/3.15/cartodb.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
