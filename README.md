@@ -1,4 +1,4 @@
-#Mapas del Proyecto Dime dónde resides y te diré cuantos años vivirás.
+#Mapas del Proyecto: Dime dónde vives y te diré cuantos años vivirás.
 III Taller de producción de Periodismo de datos. Explorando la desigualdad.
 
 El objetivo de este proyecto es analizar las variables socioeconómicas que pueden afectar a nuestra esperanza de vida en función a nuestro lugar de residencia, con el fin de hacer visible esas diferencias.

@@ -7,13 +7,17 @@ var jsons = [
     {viz: 'https://dimedonderesides.cartodb.com/api/v2/viz/7048b6f0-9a78-11e5-97fb-0ecfd53eb7d3/viz.json'},
     // esperanza de vida al nacer por distritos. Hombres
     {viz: 'https://dimedonderesides.cartodb.com/api/v2/viz/f9c298ba-9a78-11e5-b5fb-0e787de82d45/viz.json'},
+    // Diferencia esperanza de vida al nacer por distritos 2004-2014.
+    {viz: 'https://dimedonderesides.cartodb.com/api/v2/viz/3c6e982e-a0c0-11e5-8be8-0e5db1731f59/viz.json'},
      // Tasa de paro por distritos
     {viz: 'https://dimedonderesides.cartodb.com/api/v2/viz/da903ee2-9f5b-11e5-b5b6-0e31c9be1b51/viz.json'},
-	// Tasa de paro por distritos. Mujeres
+	   // Tasa de paro por distritos. Mujeres
     {viz: 'https://dimedonderesides.cartodb.com/api/v2/viz/e7efaab0-9f5f-11e5-a024-0e674067d321/viz.json'},
-	// Tasa de paro por distritos. Hombres
+	   // Tasa de paro por distritos. Hombres
     {viz: 'https://dimedonderesides.cartodb.com/api/v2/viz/3eccb5e8-9f61-11e5-b570-0e3ff518bd15/viz.json'},
-	// tasa de paro por barrios
+    // renta per cápita año 2011 por distritos.
+    {viz: 'https://dimedonderesides.cartodb.com/api/v2/viz/53c2170c-a0f8-11e5-ac9d-0ecd1babdde5/viz.json'},
+	   // tasa de paro por barrios
     {viz: 'https://dimedonderesides.cartodb.com/api/v2/viz/e664e302-9683-11e5-923a-0e3ff518bd15/viz.json'},
 	
 ];
@@ -90,6 +94,20 @@ function main() {
       var img = new Image();
       $('#map6').css('background-image', 'url(' + url + ')');
     });
+  cartodb.Image(jsons[7].viz)
+    .center(center2)
+    .zoom(zoom2)
+    .getUrl(function(err, url) {
+      var img = new Image();
+      $('#map7').css('background-image', 'url(' + url + ')');
+    });
+  cartodb.Image(jsons[8].viz)
+    .center(center2)
+    .zoom(zoom2)
+    .getUrl(function(err, url) {
+      var img = new Image();
+      $('#map8').css('background-image', 'url(' + url + ')');
+    });
 
   //loadMaps events
   $('#map0').click(function(){
@@ -112,6 +130,12 @@ function main() {
   });
   $('#map6').click(function(){
     loadMaps(6);
+  });
+  $('#map7').click(function(){
+    loadMaps(7);
+  });
+  $('#map8').click(function(){
+    loadMaps(8);
   });
 
   // Click on first button
